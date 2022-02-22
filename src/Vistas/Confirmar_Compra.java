@@ -47,19 +47,21 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Confirmar_Compra extends JFrame {
 	
 	
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField txtXxxxx;
-	private JTextField txtXxxxxxx;
+	private JTextField textField_cuit;
+	private JTextField textField_dni;
+	private JTextField textField_nro_tarjeta;
+	private JTextField textField_nomb_titular;
+	private JTextField textField_cod_seg;
+	private JTextField textField_fecha_venc;
+	private JTextField textFiled_monto_tot;
+	private JTextField textFiled_sub_tot;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -105,21 +107,45 @@ public class Confirmar_Compra extends JFrame {
 		JLabel lblNewLabel = new JLabel("CUIT:");
 		lblNewLabel.setForeground(Color.WHITE);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		textField_cuit = new JTextField();
+		textField_cuit.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int key = e.getKeyChar();
+
+			    boolean numeros = key >= 48 && key <= 57;
+			        
+			    if (!numeros)
+			    {
+			        e.consume();
+			    }
+			}
+		});
+		textField_cuit.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("DNI:");
 		lblNewLabel_1.setForeground(Color.WHITE);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
+		textField_dni = new JTextField();
+		textField_dni.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int key = e.getKeyChar();
+
+			    boolean numeros = key >= 48 && key <= 57;
+			        
+			    if (!numeros)
+			    {
+			        e.consume();
+			    }
+				
+			}
+		});
+		textField_dni.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("o");
 		lblNewLabel_2.setForeground(Color.WHITE);
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		JButton btnNewButton = new JButton("BUSCAR");
-		btnNewButton.setBackground(Color.LIGHT_GRAY);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setForeground(Color.WHITE);
@@ -129,16 +155,16 @@ public class Confirmar_Compra extends JFrame {
 		JLabel lblNewLabel_3 = new JLabel("OPCION:");
 		lblNewLabel_3.setForeground(Color.WHITE);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setForeground(Color.LIGHT_GRAY);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Tarjeta de Credito"}));
+		JComboBox comboBox_forma_pago = new JComboBox();
+		comboBox_forma_pago.setForeground(Color.LIGHT_GRAY);
+		comboBox_forma_pago.setModel(new DefaultComboBoxModel(new String[] {"Tarjeta de Credito"}));
 		
 		JLabel lblNewLabel_4 = new JLabel("CUOTAS:");
 		lblNewLabel_4.setForeground(Color.WHITE);
 		
-		JComboBox comboBox_3 = new JComboBox();
-		comboBox_3.setForeground(Color.LIGHT_GRAY);
-		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"6 Sin Intereses"}));
+		JComboBox comboBox_cuotas = new JComboBox();
+		comboBox_cuotas.setForeground(Color.LIGHT_GRAY);
+		comboBox_cuotas.setModel(new DefaultComboBoxModel(new String[] {"6 Cuotas"}));
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
@@ -148,11 +174,11 @@ public class Confirmar_Compra extends JFrame {
 						.addGroup(gl_panel_2.createSequentialGroup()
 							.addComponent(lblNewLabel_4)
 							.addPreferredGap(ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-							.addComponent(comboBox_3, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
+							.addComponent(comboBox_cuotas, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel_2.createSequentialGroup()
 							.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBox, 0, 174, Short.MAX_VALUE)))
+							.addComponent(comboBox_forma_pago, 0, 174, Short.MAX_VALUE)))
 					.addContainerGap())
 		);
 		gl_panel_2.setVerticalGroup(
@@ -161,11 +187,11 @@ public class Confirmar_Compra extends JFrame {
 					.addContainerGap()
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_3)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(comboBox_forma_pago, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_4)
-						.addComponent(comboBox_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(comboBox_cuotas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(24, Short.MAX_VALUE))
 		);
 		panel_2.setLayout(gl_panel_2);
@@ -178,26 +204,80 @@ public class Confirmar_Compra extends JFrame {
 		JLabel lblNewLabel_5 = new JLabel("NRO DE TARJETA:");
 		lblNewLabel_5.setForeground(Color.WHITE);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
+		textField_nro_tarjeta = new JTextField();
+		textField_nro_tarjeta.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				 int key = e.getKeyChar();
+
+			    boolean numeros = key >= 48 && key <= 57;
+			        
+			    if (!numeros)
+			    {
+			        e.consume();
+			    }	
+			}
+		});
+		textField_nro_tarjeta.setColumns(10);
 		
 		JLabel lblNewLabel_6 = new JLabel("TITULAR:");
 		lblNewLabel_6.setForeground(Color.WHITE);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
+		textField_nomb_titular = new JTextField();
+		textField_nomb_titular.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int key = e.getKeyChar();
+
+			    boolean mayusculas = key >= 65 && key <= 90;
+			    boolean minusculas = key >= 97 && key <= 122;
+			    boolean espacio = key == 32;
+			            
+			     if (!(minusculas || mayusculas || espacio))
+			    {
+			        e.consume();
+			    }				
+			}
+		});
+		textField_nomb_titular.setColumns(10);
 		
 		JLabel lblNewLabel_7 = new JLabel("CODIGO DE SEGURIDAD:");
 		lblNewLabel_7.setForeground(Color.WHITE);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
+		textField_cod_seg = new JTextField();
+		textField_cod_seg.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				 int key = e.getKeyChar();
+
+				    boolean numeros = key >= 48 && key <= 57;
+				        
+				    if (!numeros)
+				    {
+				        e.consume();
+				    }				
+			}
+		});
+		textField_cod_seg.setColumns(10);
 		
 		JLabel lblNewLabel_8 = new JLabel("FECHA DE VENCIMIENTO:");
 		lblNewLabel_8.setForeground(Color.WHITE);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
+		textField_fecha_venc = new JTextField();
+		textField_fecha_venc.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				 int key = e.getKeyChar();
+
+				    boolean numeros = key >= 48 && key <= 57;
+				        
+				    if (!numeros)
+				    {
+				        e.consume();
+				    }				
+			}
+		});
+		textField_fecha_venc.setColumns(10);
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 		gl_panel_3.setHorizontalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
@@ -208,16 +288,16 @@ public class Confirmar_Compra extends JFrame {
 						.addComponent(lblNewLabel_6, GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-						.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textField_nomb_titular, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textField_nro_tarjeta, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblNewLabel_8)
 						.addComponent(lblNewLabel_7, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(textField_5, Alignment.LEADING)
-						.addComponent(textField_6, Alignment.LEADING))
+						.addComponent(textField_cod_seg, Alignment.LEADING)
+						.addComponent(textField_fecha_venc, Alignment.LEADING))
 					.addContainerGap())
 		);
 		gl_panel_3.setVerticalGroup(
@@ -226,20 +306,20 @@ public class Confirmar_Compra extends JFrame {
 					.addContainerGap()
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-							.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(textField_cod_seg, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addComponent(lblNewLabel_7))
 						.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 							.addComponent(lblNewLabel_5)
-							.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(textField_nro_tarjeta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_6)
-						.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textField_fecha_venc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textField_nomb_titular, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_8))
 					.addContainerGap(20, Short.MAX_VALUE))
 		);
-		gl_panel_3.linkSize(SwingConstants.HORIZONTAL, new Component[] {textField_3, textField_4});
+		gl_panel_3.linkSize(SwingConstants.HORIZONTAL, new Component[] {textField_nro_tarjeta, textField_nomb_titular});
 		panel_3.setLayout(gl_panel_3);
 		
 		JPanel panel_4 = new JPanel();
@@ -250,16 +330,17 @@ public class Confirmar_Compra extends JFrame {
 		JLabel lblNewLabel_9 = new JLabel("COMPROBANTE A ELEGIR:");
 		lblNewLabel_9.setForeground(Color.WHITE);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setForeground(Color.LIGHT_GRAY);
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Factura B"}));
+		JComboBox comboBox_comprobante = new JComboBox();
+		comboBox_comprobante.setForeground(Color.LIGHT_GRAY);
+		comboBox_comprobante.setModel(new DefaultComboBoxModel(new String[] {"Factura B"}));
 		
 		JLabel lblNewLabel_10 = new JLabel("PROMOCION:");
 		lblNewLabel_10.setForeground(Color.WHITE);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setForeground(Color.LIGHT_GRAY);
-		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"Ninguna"}));
+		JComboBox comboBox_promocion_aplicar = new JComboBox();
+		comboBox_promocion_aplicar.setEditable(false);
+		comboBox_promocion_aplicar.setForeground(Color.LIGHT_GRAY);
+		comboBox_promocion_aplicar.setModel(new DefaultComboBoxModel(new String[] {"Ninguna"}));
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
 			gl_panel_4.createParallelGroup(Alignment.LEADING)
@@ -267,11 +348,11 @@ public class Confirmar_Compra extends JFrame {
 					.addContainerGap()
 					.addComponent(lblNewLabel_9, GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
+					.addComponent(comboBox_comprobante, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED, 233, Short.MAX_VALUE)
 					.addComponent(lblNewLabel_10, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+					.addComponent(comboBox_promocion_aplicar, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
 					.addGap(129))
 		);
 		gl_panel_4.setVerticalGroup(
@@ -280,12 +361,12 @@ public class Confirmar_Compra extends JFrame {
 					.addGap(18)
 					.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_9)
-						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(comboBox_comprobante, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_10)
-						.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(comboBox_promocion_aplicar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(25, Short.MAX_VALUE))
 		);
-		gl_panel_4.linkSize(SwingConstants.HORIZONTAL, new Component[] {comboBox_1, comboBox_2});
+		gl_panel_4.linkSize(SwingConstants.HORIZONTAL, new Component[] {comboBox_comprobante, comboBox_promocion_aplicar});
 		panel_4.setLayout(gl_panel_4);
 		
 		JPanel panel_5 = new JPanel();
@@ -296,30 +377,28 @@ public class Confirmar_Compra extends JFrame {
 		JLabel lblNewLabel_11 = new JLabel("MONTO TOTAL A PAGAR:");
 		lblNewLabel_11.setForeground(Color.WHITE);
 		
-		txtXxxxx = new JTextField();
-		txtXxxxx.setText("$ xxxxx,xx");
-		txtXxxxx.setColumns(10);
+		textFiled_monto_tot = new JTextField();
+		textFiled_monto_tot.setText("$ xxxxx,xx");
+		textFiled_monto_tot.setColumns(10);
 		
 		JLabel lblNewLabel_12 = new JLabel("SUBTOTAL:");
 		lblNewLabel_12.setForeground(Color.WHITE);
 		
-		txtXxxxxxx = new JTextField();
-		txtXxxxxxx.setText("$ xxxxx,xx");
-		txtXxxxxxx.setColumns(10);
+		textFiled_sub_tot = new JTextField();
+		textFiled_sub_tot.setText("$ xxxxx,xx");
+		textFiled_sub_tot.setColumns(10);
 		GroupLayout gl_panel_5 = new GroupLayout(panel_5);
 		gl_panel_5.setHorizontalGroup(
 			gl_panel_5.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_5.createSequentialGroup()
 					.addContainerGap(332, Short.MAX_VALUE)
 					.addGroup(gl_panel_5.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panel_5.createSequentialGroup()
-							.addComponent(lblNewLabel_12, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txtXxxxxxx, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel_5.createSequentialGroup()
-							.addComponent(lblNewLabel_11, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txtXxxxx, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(lblNewLabel_12, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_11, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_5.createParallelGroup(Alignment.TRAILING)
+						.addComponent(textFiled_sub_tot, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textFiled_monto_tot, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(320))
 		);
 		gl_panel_5.setVerticalGroup(
@@ -327,21 +406,21 @@ public class Confirmar_Compra extends JFrame {
 				.addGroup(gl_panel_5.createSequentialGroup()
 					.addContainerGap(23, Short.MAX_VALUE)
 					.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_11)
-						.addComponent(txtXxxxx, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textFiled_monto_tot, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_12))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_12)
-						.addComponent(txtXxxxxxx, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textFiled_sub_tot, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_11))
 					.addGap(8))
 		);
 		panel_5.setLayout(gl_panel_5);
 		
-		JButton btnNewButton_2 = new JButton("VOLVER");
-		btnNewButton_2.setBackground(Color.LIGHT_GRAY);
+		JButton btn_volver = new JButton("VOLVER");
+		btn_volver.setBackground(Color.LIGHT_GRAY);
 		
-		JButton btnNewButton_3 = new JButton("CONTINUAR");
-		btnNewButton_3.setBackground(Color.LIGHT_GRAY);
+		JButton btn_continuar = new JButton("CONTINUAR");
+		btn_continuar.setBackground(Color.LIGHT_GRAY);
 		
 		JLabel lblNewLabel_13 = new JLabel("CONFIRMAR COMPRA");
 		lblNewLabel_13.setForeground(Color.WHITE);
@@ -353,9 +432,9 @@ public class Confirmar_Compra extends JFrame {
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(btnNewButton_2)
+							.addComponent(btn_volver)
 							.addPreferredGap(ComponentPlacement.RELATED, 757, Short.MAX_VALUE)
-							.addComponent(btnNewButton_3))
+							.addComponent(btn_continuar))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(288)
 							.addComponent(lblNewLabel_13, GroupLayout.PREFERRED_SIZE, 358, GroupLayout.PREFERRED_SIZE))
@@ -391,38 +470,29 @@ public class Confirmar_Compra extends JFrame {
 					.addComponent(panel_5, GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
 					.addGap(18)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnNewButton_2)
-						.addComponent(btnNewButton_3))
+						.addComponent(btn_volver)
+						.addComponent(btn_continuar))
 					.addContainerGap())
 		);
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap(312, Short.MAX_VALUE)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
-							.addComponent(btnNewButton)
-							.addContainerGap())
-						.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
-							.addComponent(lblNewLabel)
-							.addGap(18)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-							.addGap(22)
-							.addComponent(lblNewLabel_1)
-							.addGap(18)
-							.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(223))))
+					.addContainerGap(235, Short.MAX_VALUE)
+					.addComponent(lblNewLabel)
+					.addGap(18)
+					.addComponent(textField_cuit, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+					.addGap(22)
+					.addComponent(lblNewLabel_1)
+					.addGap(18)
+					.addComponent(textField_dni, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(223))
 		);
 		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.TRAILING)
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap(31, Short.MAX_VALUE)
-					.addComponent(btnNewButton)
-					.addContainerGap())
-				.addGroup(Alignment.LEADING, gl_panel_1.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_1.createSequentialGroup()
@@ -430,14 +500,14 @@ public class Confirmar_Compra extends JFrame {
 							.addComponent(lblNewLabel))
 						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
 							.addComponent(lblNewLabel_1)
-							.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(textField_dni, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textField_cuit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addGap(3)
 							.addComponent(lblNewLabel_2)))
 					.addContainerGap(33, Short.MAX_VALUE))
 		);
-		gl_panel_1.linkSize(SwingConstants.HORIZONTAL, new Component[] {textField, textField_1});
+		gl_panel_1.linkSize(SwingConstants.HORIZONTAL, new Component[] {textField_cuit, textField_dni});
 		panel_1.setLayout(gl_panel_1);
 		panel.setLayout(gl_panel);
 	}
