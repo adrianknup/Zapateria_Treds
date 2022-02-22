@@ -143,10 +143,11 @@ public class Registar_ventas extends JFrame {
 	
 	public void cargatabla() {
 		ArrayList<Object>nombrecolumna = new ArrayList<Object>();
-		nombrecolumna.add("PRODUCTO");
-		nombrecolumna.add("CANTIDAD");
+		nombrecolumna.add("CODIGO");
+		nombrecolumna.add("ARTICULO");
 		nombrecolumna.add("PRECIO");
-		nombrecolumna.add("TOTAL");
+		nombrecolumna.add("CANTIDAD");
+		nombrecolumna.add("PRECIO TOTAL");
 		for (Object columna : nombrecolumna) {
 			dtm.addColumn(columna);
 		}
@@ -157,10 +158,11 @@ public class Registar_ventas extends JFrame {
 		
 		for(int i=0;i<=8;i++) {
 			String id_articulo = "  ";
-			String cant = "  ";
+			String desc_art = " ";
 			String precio = "  ";
+			String cant = "  ";
 			String total = "  ";
-			Object[] info = new Object[]{id_articulo, cant, precio, total};
+			Object[] info = new Object[]{id_articulo, desc_art,precio, cant, total};
 			datos.add(info);
 		}
 		
